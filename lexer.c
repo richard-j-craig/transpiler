@@ -14,8 +14,13 @@ typedef struct {
     int value;  // Only used for TOKEN_INT
 } Token;
 
+// The argument is a pointer to the remaining input string
+// given strings are pointers to the first character, it is a pointer to a pointer.
+// If the string was inputted directly, it could not be modified.
 Token get_next_token(char** input) {
     while (isspace(**input)) {
+        // remove the the first character of the string
+        // by incrementing address of the pointer to the first character
         (*input)++;
     }
 
