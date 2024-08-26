@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+            "-g",
+            "${workspaceFolder}/transpiler.c",
+            "${workspaceFolder}/lexer.c",
+            "${workspaceFolder}/parser.c",
+            "-o",
+            "${workspaceFolder}/transpiler"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"]
+      }
+    ]
+  }
+  
