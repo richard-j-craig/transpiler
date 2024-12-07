@@ -6,12 +6,20 @@
 typedef enum {
     TOKEN_INT,
     TOKEN_PLUS,
+    TOKEN_CHAR,
+    TOKEN_ASSIGN,
     TOKEN_EOF,
 } TokenType;
 
+typedef union {
+    int intValue;  // Used for literals or other integer values
+    char* identifier;  // Used for variable names
+    // Add other data types as needed
+} TokenData;
+
 typedef struct {
     TokenType type;
-    int value;  // Only used for TOKEN_INT
+    TokenData value;  // Only used for TOKEN_INT and TOKEN_CHAR
 } Token;
 
 // The argument is a pointer to the remaining input string
@@ -32,6 +40,13 @@ Token get_next_token(char** input) {
             (*input)++;
         }
         return (Token){TOKEN_INT, value};
+    } else if (ischar(**input)) {
+        char value = **input;
+        (*input)++;
+        return (Token){TOKEN_CHAR, value};
+    } else if (**input == '=') {
+        (*input)++;
+        return (Token){TOKEN_ASSIGN, 0};
     } else if (**input == '+') {
         (*input)++;
         return (Token){TOKEN_PLUS, 0};

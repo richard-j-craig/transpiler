@@ -6,27 +6,29 @@
 
 typedef struct ASTNode {
     TokenType type;
-    int value;  // Only used for TOKEN_INT
+    TokenData data;
     struct ASTNode* left;
     struct ASTNode* right;
 } ASTNode;
 
-ASTNode* newASTNode(TokenType type, int value) {
+ASTNode* newASTNode(TokenType type, TokenData data) {
     ASTNode* node = malloc(sizeof(ASTNode));
     node->type = type;
-    node->value = value;
+    node->data = data;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
 ASTNode* parse(Token* tokens) {
-    ASTNode* left = newASTNode(tokens->type, tokens->value);
+    ASTNode* left = newASTNode(tokens->type, tokens->data);
     tokens++;
 
     while (tokens->type != TOKEN_EOF) {
-        ASTNode* right = newASTNode(tokens[1].type, tokens[1].value);
-        ASTNode* parent = newASTNode(tokens->type, 0);
+        ASTNode* right = newASTNode(tokens[1].type, tokens[1].data);
+        TokenData _data;
+        _data.intValue = 0;
+        ASTNode* parent = newASTNode(tokens->type, _data);
         parent->left = left;
         parent->right = right;
         left = parent;

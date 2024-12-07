@@ -5,7 +5,7 @@
 
 typedef struct ASTNode {
     TokenType type;
-    int value;  // Only used for TOKEN_INT
+    TokenData data;
     struct ASTNode* left;
     struct ASTNode* right;
 } ASTNode;
